@@ -1,4 +1,4 @@
-import path from "path";
+// import path from "path";
 import { Configuration, DefinePlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
@@ -15,8 +15,12 @@ const webpackConfig = (): Configuration => ({
     plugins: [new TsconfigPathsPlugin({ configFile: "./tsconfig.json" })],
   },
   output: {
-    path: path.join(__dirname, "/build"),
-    filename: "build.js",
+    path: undefined,
+    publicPath: "/",
+    filename: "[name].js",
+    chunkFilename: "[name].chunk.js",
+    // path: path.join(__dirname, "/build"),
+    // filename: "build.js",
   },
   module: {
     rules: [
@@ -34,6 +38,36 @@ const webpackConfig = (): Configuration => ({
       },
     ],
   },
+  optimization: {
+    usedExports: true,
+    removeEmptyChunks: true,
+    mergeDuplicateChunks: true,
+    splitChunks: {
+      chunks: 'async',
+      minSize: 20000,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true,
+          name: 'vendor',
+          chunks: 'all',
+          enforce: true,
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
+  },
+
+  
 //   devServer: {
 //     port: 3000,
 //     open: true,
