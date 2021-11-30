@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "skipDefaultLibCheck": true,
         "moduleResolution": "node",
         "target": "ESNext",
         "removeComments": true,

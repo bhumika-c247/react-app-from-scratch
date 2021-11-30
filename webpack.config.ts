@@ -1,4 +1,4 @@
-// import path from "path";
+import path from "path";
 import { Configuration, DefinePlugin } from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
@@ -11,8 +11,9 @@ const webpackConfig = (): Configuration => ({
     : { devtool: "eval-source-map" }),
 
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
+    extensions: [".ts", ".tsx", ".js",'*', '.js', '.jsx'],
     plugins: [new TsconfigPathsPlugin({ configFile: "./tsconfig.json" })],
+    
   },
   output: {
     path: undefined,
@@ -36,6 +37,12 @@ const webpackConfig = (): Configuration => ({
         test: /\.s?css$/,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.(js|jsx)$/,
+        include: path.resolve(__dirname, 'src'),
+        exclude: /(node_modules|bower_components|build)/,
+        use: ['babel-loader']
+      }
     ],
   },
   optimization: {

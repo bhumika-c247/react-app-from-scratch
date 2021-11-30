@@ -1,53 +1,41 @@
-import React from 'react';
-import  ScreenCapture  from './Screenshot';
-import "./styles.scss";
-// import { BrowserRouter, Route, Switch } from 'react-router-dom';
-// import Login from './Login';
+import React, { Component, Fragment } from 'react';
+import { ScreenCapture } from 'react-screen-capture';
 
-const App: React.FC = () => {
-// const [screenCapture,setscreenCapture]=useState('')
-//   const handleScreenCapture = (screenCapture:string) => {
-//     console.log('screenCapture----------',screenCapture);
+// import './style.css';
+
+class CaptureScreenshot extends Component <unknown,unknown>{
+  state = {
+    screenCapture: '',
+  };
+
+  handleScreenCapture = (screenCapture:string) => {
+    console.log('screenCapture----------',screenCapture);
     
-//     setscreenCapture( screenCapture);
-//     return null;
-//   };
+    this.setState({ screenCapture });
+    return null;
+  };
 
-//  const handleSave = () => {
-//     const screenCaptureSource = screenCapture;
-//     const downloadLink = document.createElement('a');
-//     const fileName = 'react-screen-capture.png';
+  handleSave = () => {
+    const screenCaptureSource = this.state.screenCapture;
+    const downloadLink = document.createElement('a');
+    const fileName = 'react-screen-capture.png';
 
-//     downloadLink.href = screenCaptureSource;
-//     downloadLink.download = fileName;
-//     downloadLink.click();
-//   };
-   
+    downloadLink.href = screenCaptureSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  };
+
+  render() {
+    const { screenCapture } = this.state;
+    console.log(screenCapture);
     return (
-    <div >
-    {/* <h1>React 17 and TypeScript 4 App!🚀</h1> */}
-     {/* <BrowserRouter>
-        <React.Suspense fallback={'loading...'}>
-          <Switch>
-            <Route
-              exact
-              path={'/log'}
-              name='Login Page'
-              // render={(props) => <Login {...props} />}
-            />
-            
-          </Switch>
-        </React.Suspense>
-      </BrowserRouter> */}
-      <ScreenCapture/>
-    {/* <ScreenCapture onEndCapture={handleScreenCapture}>
+      <ScreenCapture onEndCapture={this.handleScreenCapture}>
         {({ onStartCapture }) => (
           <>
           <Fragment>
-            
-         
 <div className="container">
-<p>What is Lorem Ipsum?</p>
+  <h1>Capture Screenshot</h1>
+          <p>What is Lorem Ipsum?</p>
 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 <p></p>
 <p>Why do we use it?</p>
@@ -60,17 +48,18 @@ const App: React.FC = () => {
 <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Maloru by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
 <p></p>
 </div>
+           
           </Fragment>
-           <p><button onClick={onStartCapture}>Capture</button></p> 
+           <p className='capture-btn'><button onClick={onStartCapture} >Capture</button></p> 
             <br/>
             <br/>
-            <img className={screenCapture ? 'screenshot':''} src={screenCapture} />
-            <p><button onClick={handleSave}>Download image</button></p> 
+            <img className={screenCapture ? 'screenshot':''}  src={screenCapture} />
+            <p><button onClick={this.handleSave}>Download image</button></p> 
         </>
       )}
-      </ScreenCapture> */}
-    </div>
-      );
-  
-};
-export default App;
+      </ScreenCapture>
+    );
+  }
+}
+
+export default CaptureScreenshot;

@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "babel-loader": "^8.2.3",
     "css-loader": "^6.5.1",
     "fork-ts-checker-webpack-plugin": "^6.4.0",
     "html-webpack-plugin": "^5.5.0",
@@ -11,6 +14,11 @@
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router": "^6.0.2",
+    "react-router-dom": "^6.0.2",
+    "react-screen-capture": "^1.0.1",
+    "reactjs-popup": "^2.0.5",
+    "reactstrap": "^9.0.1",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
@@ -43,5 +51,9 @@
     "start": "webpack-cli serve --mode=development --env development --open --hot",
     "build": "NODE_ENV=production webpack --config webpack.config.ts",
     "lint": "eslint src/**/*.{ts,tsx} --quiet --fix"
-  }
+  },
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ]
 }
